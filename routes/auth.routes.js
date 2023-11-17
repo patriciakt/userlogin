@@ -9,6 +9,9 @@ const mongoose = require("mongoose");
 //require/import User model
 const User = require("../models/User.model");
 
+//require auth middleware
+const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
+
 //GET route --> display signup form to users
 router.get("/signup", (req, res) => res.render("auth/signup"));
 
@@ -102,8 +105,8 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-//user profile display
-router.get("/userProfile", (req, res) =>
+//GET user profile display
+router.get("/userProfile", isLoggedIn, (req, res) =>
   res.render("users/user-profile", { userInSession: req.session.currentUser })
 );
 
