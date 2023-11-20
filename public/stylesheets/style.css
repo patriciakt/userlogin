@@ -1,11 +1,12 @@
 /* public/stylesheets/style.css */
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 a {
-  color: #00b7ff;
+  color: red;
   text-decoration: none;
   font-size: 1.5em;
 }
@@ -49,7 +50,7 @@ form button {
 }
 
 form button:hover {
-  background: #fff;
+  background: orange;
   color: #43a3e6;
   transition: 0.3s ease background;
 }
