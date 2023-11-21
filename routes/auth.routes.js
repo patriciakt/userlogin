@@ -111,6 +111,11 @@ router.get("/userProfile", isLoggedIn, (req, res) =>
   res.render("users/user-profile", { userInSession: req.session.currentUser })
 );
 
+//GET post form
+router.get("/create-post", isLoggedIn, (req, res) => {
+  res.render("users/create-post", { userInSession: req.session.currentUser });
+});
+
 module.exports = router;
 
 //LOGOUT route
