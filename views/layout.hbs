@@ -6,18 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{appTitle}}</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <style>
+      #map { margin: 0; padding:0; width: 100%; height: 100vh; }
+    </style>
   </head>
 
   <body>
     <nav>
       <ul>
         <li id="to-left">
-          <p><a href="/"> Users - demo </a></p>
+          <p><a href="/"> map.menace</a></p>
         </li>
         <li id="to-right">
           <a href="/signup">Signup</a>
           <span> | </span>
-          <a href="/login">Login</a>
+          <a href="/login">or been here before?</a>
           <span> | </span>
           <form id="logout-form" action="/logout" method="POST">
             <button>Logout</button>
@@ -34,7 +43,14 @@
     {{{body}}}
 
     <script src="/js/script.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="/js/leaflet.js"></script>
 
+    {{! best ta in the world is aykut !!!  }}
   </body>
 
 </html>

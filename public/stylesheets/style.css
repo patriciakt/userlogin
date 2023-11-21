@@ -1,11 +1,11 @@
-/* public/stylesheets/style.css */
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
-  color: #00b7ff;
+  color: rgb(255, 0, 0);
   text-decoration: none;
   font-size: 1.5em;
 }
@@ -34,22 +34,40 @@ form button {
 }
 
 form button {
-  background: #43a3e6;
-  border: 1px solid #43a3e6;
-  border-radius: 4px;
-  color: #fff;
+  background: transparent;
+  /*border: 1px solid #111212;
+  border-radius: 4px;*/
+  color: #0e0d0d;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;
   padding: 8px 16px;
-  text-decoration: none;
+  text-decoration: dotted;
   text-transform: uppercase;
   transition: 0.3s ease background;
   width: 100%;
 }
 
+h1 {
+  .transparent-text {
+    font-size: 24px;
+    color: #fff; /* Set text color */
+    /* background: linear-gradient(
+      to right,
+      #000,
+      #000
+    );  */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block; /*  border wraps around the text */
+    border: 2px solid #fff; /* set the border color and width */
+    padding: 10px;
+  }
+}
+
 form button:hover {
-  background: #fff;
+  background: orange;
   color: #43a3e6;
   transition: 0.3s ease background;
 }
@@ -64,7 +82,7 @@ form button:hover {
 }
 
 ul {
-  border-bottom: 2px solid #43a3e6;
+  border-bottom: 2px solid #9d948e;
   height: 30px;
   padding: 1em 0;
   list-style-type: none;
@@ -80,7 +98,7 @@ ul li {
 }
 
 #to-right span {
-  color: #43a3e6;
+  color: #171517;
   font-size: 1.5em;
 }
 
