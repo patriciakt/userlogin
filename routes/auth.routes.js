@@ -21,7 +21,7 @@ router.post("/signup", (req, res, next) => {
 
   //if condition to check if user filled out all mandatory fields
   if (!username || !email || !password) {
-    res.render("auth/signup", { errorMessage: "All fields are mandatory." });
+    res.render("auth/signup", { errorMessage: "fill out all fields,silly" });
     return;
   }
 
@@ -30,7 +30,7 @@ router.post("/signup", (req, res, next) => {
   if (!regex.test(password)) {
     res.status(500).render("auth/signup", {
       errorMessage:
-        "Password needs to have at least one number, one lowercase and one uppercase letter!",
+        "strong password is easy: at least one number, one lowercase and one uppercase letter",
     });
     return;
   }
@@ -53,12 +53,11 @@ router.post("/signup", (req, res, next) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
-        console.log(
-          " Username and email need to be unique. Either username or email is already used. "
-        );
+        console.log(" only unique email and username. try new one. ");
 
         res.status(500).render("auth/signup", {
-          errorMessage: "User not found and/or incorrect password.",
+          errorMessage:
+            "user not found and/or incorrect password. did you sleep well tonight, bro?",
         });
       } else {
         next(error);
@@ -78,7 +77,7 @@ router.post("/login", (req, res, next) => {
 
   if (email === "" || password === "") {
     res.render("auth/login", {
-      errorMessage: "Please enter both, email AND password to login.",
+      errorMessage: "enter both, ok?",
     });
     return;
   }
@@ -88,7 +87,8 @@ router.post("/login", (req, res, next) => {
       if (!user) {
         console.log("Email not registered. ");
         res.render("auth/login", {
-          errorMessage: "User not found and/or incorrect password.",
+          errorMessage:
+            "user not found and/or incorrect password. did you sleep well tonight, bro?",
         });
         return;
       } else if (bcryptjs.compareSync(password, user.passwordHash)) {
@@ -98,7 +98,8 @@ router.post("/login", (req, res, next) => {
       } else {
         console.log("Incorrect password. ");
         res.render("auth/login", {
-          errorMessage: "User not found and/or incorrect password.",
+          errorMessage:
+            "user not found and/or incorrect password. did you sleep well tonight, bro?",
         });
       }
     })
