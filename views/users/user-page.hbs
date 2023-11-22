@@ -18,15 +18,15 @@
       </li>
       <li>
         City I am from:
-        <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name" value={{userInfoArray.returnedCity}} />
+        <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name" value={{userInfoArray.returnedCity}}  />
       </li>
       <li>
         City I returned to most times:
-        <input type="text" name="returnedCity2" id="returnedCityInput2" placeholder="Enter city name" value={{userInfoArray.returnedCity2}} />
+        <input type="text" name="returnedCity2" id="returnedCityInput2" placeholder="Enter city name" value={{userInfoArray.returnedCity2}}  />
       </li>
       <li>
         City opened unexpected way:
-        <input type="text" name="returnedCity3" id="returnedCityInput3" placeholder="Enter city name" value={{userInfoArray.returnedCity3}} />
+        <input type="text" name="returnedCity3" id="returnedCityInput3" placeholder="Enter city name" value={{userInfoArray.returnedCity3}}  />
       </li>
 
       <button type="submit">save changes</button>
@@ -44,25 +44,20 @@
 
 
 
-  <div class="info-travel">
-    <p3>All visited countries</p3>
-    <ul class="travel-list">
 
-      <li>Portugal</li>
-      <li>Italy</li>
-      <li>Korea</li>
-      <li>Ukraine</li>
+<p3>All visited countries</p3>
+{{#each userPostsFromDB}}
+  <div class="info-travel">
+    <ul class="travel-list">
+      <li>{{title}}</li>
+      <li>{{text}}</li>
+      <span><></span>
     </ul>
   </div>
-  
-
-
+{{/each}}
   <button id="myMapButton">
     <a href="/userProfile">my map</a>
   </button>
-
 {{else}}
-
   <br /><p> do login</p>
-
 {{/if}}

@@ -15,7 +15,6 @@ router.post("/signup", (req, res, next) => {
   console.log(req.body);
   const { username, email, password } = req.body;
 
-
   // //if condition to check if user filled out all mandatory fields
 
   if (!username || !email || !password) {
@@ -62,12 +61,9 @@ router.post("/signup", (req, res, next) => {
         next(error);
       }
     });
-
 });
 
-  // close .catch()
-}); // close .post()
-
+// close .catch()
 
 ///LLLLLOGIN ROUTESSS///
 
@@ -114,11 +110,19 @@ router.get("/userProfile", isLoggedIn, (req, res) =>
 );
 
 router.get("/userPage", isLoggedIn, (req, res) => {
-  console.log(req.session.currentUser.userInfo[0].returnedCity);
-  res.render("users/user-page", {
-    userInSession: req.session.currentUser,
-    userInfoArray: req.session.currentUser.userInfo[0],
-  });
+  const userId = req.session.currentUser._id;
+
+  User.findById(userId)
+    .populate("posts")
+    .then((user) => {
+      console.log(user.posts);
+      res.render("users/user-page", {
+        userInSession: req.session.currentUser,
+        userInfoArray: req.session.currentUser.userInfo[0],
+        userPostsFromDB: user.posts,
+      });
+    })
+    .catch((error) => console.log(error));
 });
 //UUUPDATE ROUTESSSSS
 
