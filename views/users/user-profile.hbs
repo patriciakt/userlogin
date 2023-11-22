@@ -1,14 +1,20 @@
 {{#if userInSession}}
-  <div id="map"></div>
 
-  <h2>where have you been this time, {{userInSession.username}}? </h2>
+  <h2>where you want to travel this time, {{userInSession.username}}? </h2>
   <p>lets create another one menace </p>
+
+  <button id="pageButton">
+    <a href="/userPage">your map info</a>
+    {{!<a href="/userPage">map info</a>}}
+
   <button>
     <a href="/userProfile{{userInSession._id}}">reload the page</a>
+
   </button>
+  <div id="map"></div>
 
 {{else}}
 
-  <br /><p> bro,log in,plzzz</p>
+  <br /><p> do login</p>
 
 {{/if}}

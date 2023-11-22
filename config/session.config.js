@@ -1,9 +1,7 @@
 const session = require("express-session");
 
-//require mongostore
 const MongoStore = require("connect-mongo");
 
-//require mongoose
 const mongoose = require("mongoose");
 
 module.exports = (app) => {
