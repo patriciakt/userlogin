@@ -17,9 +17,10 @@ router.get("/signup", (req, res) => res.render("auth/signup"));
 
 //POST route --> process form data
 router.post("/signup", (req, res, next) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
 
-  //if condition to check if user filled out all mandatory fields
+  // //if condition to check if user filled out all mandatory fields
   if (!username || !email || !password) {
     res.render("auth/signup", { errorMessage: "fill out all fields,silly" });
     return;
@@ -62,7 +63,8 @@ router.post("/signup", (req, res, next) => {
       } else {
         next(error);
       }
-    }); // close .catch()
+    });
+  // close .catch()
 }); // close .post()
 
 ///LOGIN///
@@ -111,13 +113,6 @@ router.get("/userProfile", isLoggedIn, (req, res) =>
   res.render("users/user-profile", { userInSession: req.session.currentUser })
 );
 
-//GET post form
-router.get("/create-post", isLoggedIn, (req, res) => {
-  res.render("users/create-post", { userInSession: req.session.currentUser });
-});
-
-module.exports = router;
-
 //LOGOUT route
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
@@ -125,3 +120,5 @@ router.post("/logout", (req, res, next) => {
     res.redirect("/");
   });
 });
+
+module.exports = router;

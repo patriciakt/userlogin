@@ -1,27 +1,20 @@
-<div class="row">
-  <div class="col-md-6">
-    <form action="/create-post" method="POST" enctype="multipart/form-data">
-      <div class="form-group">
-        <label>Title:
-          <input type="text" name="title" class="form-control" />
-        </label>
-      </div>
+<form action="/create-post" id="createPost" method="post">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" placeholder="City, Country" /><br
+  />
 
-      <div class="form-group">
-        <label>Content:
-          <textarea name="description" cols="30" rows="4" class="form-control">
-          </textarea>
-        </label>
-      </div>
+  <label for="text">Text:</label>
+  <textarea
+    id="text"
+    name="text"
+    placeholder="what did you see, do?"
+  ></textarea><br />
 
-      <div class="form-group">
-        <label>Image:
-          <input type="file" name="travel-images" class="form-control-file" />
-        </label>
-      </div>
+  <!--<label for="images">Upload images:</label>
+  <input type="file" id="images" name="images" /><br />-->
+  <input type="hidden" id="lat" name="lat" value="{{coordinates.lat}}" />
+  <input type="hidden" id="lng" name="lng" value="{{coordinates.lng}}" />
+  <br />
 
-      <button type="submit" class="btn btn-primary">Create</button>
-
-    </form>
-  </div>
-</div>
+  <button type="submit">Submit and save!</button>
+</form>
