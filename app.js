@@ -31,6 +31,11 @@ app.use("/", indexRoutes);
 const authRouter = require("./routes/auth.routes");
 app.use("/", authRouter);
 
+
+const postRoutes = require("./routes/post.routes");
+app.use("/", postRoutes);
+
+
 // for errors in login
 require("./error-handling")(app);
 

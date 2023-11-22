@@ -12,7 +12,11 @@ const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
 //SSSSSSSIGNUP ROUTES
 router.get("/signup", (req, res) => res.render("auth/signup"));
 router.post("/signup", (req, res, next) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
+
+
+  // //if condition to check if user filled out all mandatory fields
 
   if (!username || !email || !password) {
     res.render("auth/signup", {
@@ -58,7 +62,12 @@ router.post("/signup", (req, res, next) => {
         next(error);
       }
     });
+
 });
+
+  // close .catch()
+}); // close .post()
+
 
 ///LLLLLOGIN ROUTESSS///
 
@@ -170,6 +179,9 @@ router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
 /// GETNEWCITY ROUTES OH MY GOD WHEN IT WILL END
 
 //LLLLLOGOUT route
+
+//LOGOUT route
+
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
     if (err) next(err);

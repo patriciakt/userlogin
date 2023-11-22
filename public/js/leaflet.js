@@ -17,6 +17,25 @@ let openStreetMap = L.tileLayer(
 //create map
 openStreetMap.addTo(map);
 
+//open popup when clicked + coordinates
+function markerClick(e) {
+  const marker = e.target;
+  const { lat, lng } = map.mouseEventToLatLng(e.originalEvent);
+  console.log(lat + lng);
+
+  //popup content
+  const popupContent = `
+<b>Hello traveler</b>
+<br>
+<a href="/create-post?lat=${lat}&lng=${lng}">
+<button>Tell us more</button>
+</a>`;
+
+  //create popup - bind popup to marker
+  const popup = L.popup().setContent(popupContent);
+  marker.bindPopup(popup).togglePopup();
+}
+
 //double click to drop marker
 map.on("dblclick", function (e) {
   //latlng - property name used in leaflet library for coordinates; (6, to fix coordinates decimal places)
@@ -24,11 +43,7 @@ map.on("dblclick", function (e) {
   const longitude = e.latlng.lng.toFixed(8);
 
   const marker = L.marker([latitude, longitude]).addTo(map);
-});
 
-//open popup on marker
-marker
-  .bindPopup(
-    `<b>Double Click to Redirect</b><br><a href="/post.html" onclick="redirectToForm">Go to Form</a>`
-  )
-  .openPopup();
+  //attach fucntion to open popup on click
+  marker.on("click", markerClick);
+});
