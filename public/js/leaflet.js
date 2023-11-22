@@ -17,21 +17,23 @@ let openStreetMap = L.tileLayer(
 //create map
 openStreetMap.addTo(map);
 
-//open popup when clicked
+//open popup when clicked + coordinates
 function markerClick(e) {
   const marker = e.target;
+  const { lat, lng } = map.mouseEventToLatLng(e.originalEvent);
+  console.log(lat + lng);
 
   //popup content
   const popupContent = `
 <b>Hello traveler</b>
 <br>
-<a href="/create-post">
+<a href="/create-post?lat=${lat}&lng=${lng}">
 <button>Tell us more</button>
 </a>`;
 
   //create popup - bind popup to marker
   const popup = L.popup().setContent(popupContent);
-  marker.bindPopup(popup).openPopup();
+  marker.bindPopup(popup).togglePopup();
 }
 
 //double click to drop marker
