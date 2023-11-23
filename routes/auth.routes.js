@@ -6,9 +6,12 @@ const saltRounds = 10;
 
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
+
+
 const Post = require("../models/Post.model");
 
 const fileUploader = require("../config/cloudinary.config");
+
 
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
 
@@ -153,13 +156,18 @@ router.post(
         return res.status(404).send(" user not found ");
       }
 
+
+    await user.save();
+
       user.userInfo.push({
         returnedCity: returnedCity,
         returnedCity2: returnedCity2,
         returnedCity3: returnedCity3,
       });
 
+
       await user.save();
+
 
       req.session.currentUser = await User.findById(userId);
       req.session.save();
@@ -171,7 +179,6 @@ router.post(
   }
 );
 
-/// GETNEWCITY ROUTES OH MY GOD WHEN IT WILL END
 
 //LLLLLOGOUT route
 

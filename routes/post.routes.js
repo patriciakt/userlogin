@@ -18,7 +18,7 @@ router.get("/create-post", isLoggedIn, (req, res) => {
   });
 });
 
-//POST blog post
+
 router.post(
   "/create-post/",
   isLoggedIn,
@@ -55,5 +55,14 @@ router.post(
       .catch((error) => next);
   }
 );
+
+//DELETE POST
+router.post("/delete-post/:postId", (req, res, next) => {
+  const { postId } = req.params;
+
+  Post.findByIdAndDelete(postId)
+    .then(() => res.redirect("/userPage"))
+    .catch((error) => next(error));
+});
 
 module.exports = router;
