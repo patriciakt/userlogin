@@ -31,11 +31,6 @@ app.use("/", indexRoutes);
 const authRouter = require("./routes/auth.routes");
 app.use("/", authRouter);
 
-const mapRoutes = require("./routes/map.routes");
-app.use("/user-profile", mapRoutes);
-
-//new file for map or in profile after login
-
 // for errors in login
 require("./error-handling")(app);
 

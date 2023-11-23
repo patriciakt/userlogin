@@ -5,27 +5,22 @@ const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 
 const mongoose = require("mongoose");
-
-//require/import User model
 const User = require("../models/User.model");
 
-//require auth middleware
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
 
-//GET route --> display signup form to users
+//SSSSSSSIGNUP ROUTES
 router.get("/signup", (req, res) => res.render("auth/signup"));
-
-//POST route --> process form data
 router.post("/signup", (req, res, next) => {
   const { username, email, password } = req.body;
 
-  //if condition to check if user filled out all mandatory fields
   if (!username || !email || !password) {
-    res.render("auth/signup", { errorMessage: "fill out all fields,silly" });
+    res.render("auth/signup", {
+      errorMessage: "you better fill out all fields",
+    });
     return;
   }
 
-  //make sure of strong passwords
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
     res.status(500).render("auth/signup", {
@@ -62,15 +57,12 @@ router.post("/signup", (req, res, next) => {
       } else {
         next(error);
       }
-    }); // close .catch()
-}); // close .post()
+    });
+});
 
-///LOGIN///
+///LLLLLOGIN ROUTESSS///
 
-//get route to display login form
 router.get("/login", (req, res) => res.render("auth/login"));
-
-//post login route
 router.post("/login", (req, res, next) => {
   console.log("SESSION ===>", req.session);
   const { email, password } = req.body;
@@ -92,8 +84,9 @@ router.post("/login", (req, res, next) => {
         });
         return;
       } else if (bcryptjs.compareSync(password, user.passwordHash)) {
-        //saving user in session
         req.session.currentUser = user;
+        //console.log("User ID:", userId);
+
         res.redirect("/userProfile");
       } else {
         console.log("Incorrect password. ");
@@ -106,17 +99,82 @@ router.post("/login", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-//GET user profile display
+//MMMMAP/PROFILE ROUTES
 router.get("/userProfile", isLoggedIn, (req, res) =>
   res.render("users/user-profile", { userInSession: req.session.currentUser })
 );
 
-module.exports = router;
+router.get("/userPage", isLoggedIn, (req, res) => {
+  console.log(req.session.currentUser.userInfo[0].returnedCity);
+  res.render("users/user-page", {
+    userInSession: req.session.currentUser,
+    userInfoArray: req.session.currentUser.userInfo[0],
+  });
+});
+//UUUPDATE ROUTESSSSS
 
-//LOGOUT route
+// router.post("/updateUserInfo", isLoggedIn, (req, res) => {
+//   const userId = req.session.currentUser._id;
+//   const { returnedCity, returnedCity2, returnedCity3, test } = req.body;
+//   console.log(userId);
+//   console.log(returnedCity, returnedCity2, returnedCity3, test);
+// });
+
+router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
+  console.log(req.body);
+  console.log("CURRENT USER =>", req.session.currentUser);
+  try {
+    const userId = req.session.currentUser._id;
+    const { returnedCity, returnedCity2, returnedCity3 } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send(" user not found ");
+    }
+    user.userInfo.push({
+      returnedCity: returnedCity,
+      returnedCity2: returnedCity2,
+      returnedCity3: returnedCity3,
+    });
+
+    await user.save();
+    // req.session.currentUser = {
+    //   ...req.session.currentUser,
+    //   ...req.body,
+    // };
+
+    req.session.currentUser = await User.findById(userId);
+    req.session.save();
+    return res.redirect("/userPage");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
+// router.get("/updateUserInfo", isLoggedIn, async (req, res) => {
+//   try {
+//     const userId = req.session.currentUser._id;
+//     const user = await User.findById(userId);
+
+//     console.log("THIS IS THE USER =>", user);
+//     if (!user) {
+//       return res.status(404).send("User not found");
+//     }
+//     res.render("users/user-page", { userInSession: user });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
+
+/// GETNEWCITY ROUTES OH MY GOD WHEN IT WILL END
+
+//LLLLLOGOUT route
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
     if (err) next(err);
     res.redirect("/");
   });
 });
+
+module.exports = router;

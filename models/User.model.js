@@ -1,4 +1,3 @@
-// models/User.model.js
 const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
@@ -21,6 +20,11 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
+    userPhoto: {
+      type: String,
+      default: "image@url",
+    },
+    userInfo: [{}],
   },
   {
     timestamps: true,

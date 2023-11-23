@@ -23,6 +23,16 @@ form label {
   width: 100%;
 }
 
+#page {
+  clear: both;
+}
+
+#pageButton {
+  position: fixed;
+  top: 10px;
+  right: 0;
+  /*z-index: 999;*/
+}
 form input,
 form button {
   box-sizing: border-box;
@@ -43,7 +53,7 @@ form button {
   font-size: 14px;
   padding: 8px 16px;
   text-decoration: dotted;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   transition: 0.3s ease background;
   width: 100%;
 }
@@ -51,12 +61,7 @@ form button {
 h1 {
   .transparent-text {
     font-size: 24px;
-    color: #fff; /* Set text color */
-    /* background: linear-gradient(
-      to right,
-      #000,
-      #000
-    );  */
+    color: #fff;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -64,12 +69,6 @@ h1 {
     border: 2px solid #fff; /* set the border color and width */
     padding: 10px;
   }
-}
-
-form button:hover {
-  background: orange;
-  color: #43a3e6;
-  transition: 0.3s ease background;
 }
 
 .error {
@@ -82,19 +81,32 @@ form button:hover {
 }
 
 ul {
-  border-bottom: 2px solid #9d948e;
   height: 30px;
   padding: 1em 0;
   list-style-type: none;
 }
 
+.main-navigation {
+  border-bottom: 2px solid #9d948e;
+}
+
 ul li {
   line-height: 20px;
+}
+nav {
+  position: relative;
+}
+
+nav::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 #to-right {
   padding: 1em;
   float: right;
+  font-size: 12px;
 }
 
 #to-right span {
@@ -123,4 +135,54 @@ ul li {
 
 #logout-form button {
   width: 120px;
+}
+
+h3 {
+  font-style: oblique;
+  text-align: center;
+}
+
+p3 {
+  text-align: center;
+}
+
+.layout-wrapper {
+  position: relative;
+}
+
+#myMapButton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 999;
+}
+
+.info-user {
+  float: left;
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.info-travel {
+  float: right;
+  width: 50%;
+}
+
+p3 {
+  font-style: bold;
+}
+
+.travel-list li {
+  list-style-type: none;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: transparent;
+  color: rgb(12, 11, 11);
+  cursor: pointer;
+  text-decoration: dotted;
+  text-transform: uppercase;
+  float: left;
 }
