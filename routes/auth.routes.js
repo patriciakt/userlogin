@@ -109,29 +109,49 @@ router.get("/userProfile", isLoggedIn, (req, res) =>
   res.render("users/user-profile", { userInSession: req.session.currentUser })
 );
 
-router.get("/userPage", isLoggedIn, (req, res) => {
-  const userId = req.session.currentUser._id;
+router.get("/userPage", isLoggedIn, async (req, res) => {
+  try {
+    const userId = req.session.currentUser._id;
 
-  User.findById(userId)
-    .populate("posts")
-    .then((user) => {
-      console.log(user.posts);
-      res.render("users/user-page", {
-        userInSession: req.session.currentUser,
-        userInfoArray: req.session.currentUser.userInfo[0],
-        userPostsFromDB: user.posts,
-      });
-    })
-    .catch((error) => console.log(error));
+    const user = await User.findById(userId).populate("posts");
+
+    const userInfoArray =
+      req.session.currentUser.userInfo.length > 0
+        ? req.session.currentUser.userInfo
+        : [];
+
+    const lastChangeIndex = userInfoArray.length - 1;
+    const lastChange =
+      lastChangeIndex >= 0 ? userInfoArray[lastChangeIndex] : null;
+
+    res.render("users/user-page", {
+      userInSession: req.session.currentUser,
+      userInfoArray: lastChange,
+      userPostsFromDB: user.posts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
-//UUUPDATE ROUTESSSSS
 
-// router.post("/updateUserInfo", isLoggedIn, (req, res) => {
+// router.get("/userPage", isLoggedIn, (req, res) => {
 //   const userId = req.session.currentUser._id;
-//   const { returnedCity, returnedCity2, returnedCity3, test } = req.body;
-//   console.log(userId);
-//   console.log(returnedCity, returnedCity2, returnedCity3, test);
+
+//   User.findById(userId)
+//     .populate("posts")
+//     .then((user) => {
+//       console.log(user.posts);
+//       res.render("users/user-page", {
+//         userInSession: req.session.currentUser,
+//         userInfoArray: req.session.currentUser.userInfo[0],
+//         userPostsFromDB: user.posts,
+//       });
+//     })
+//     .catch((error) => console.log(error));
 // });
+
+//UUUPDATE ROUTESSSSSssssssssssssssssssssssssssssss
 
 router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
   console.log(req.body);
@@ -183,8 +203,6 @@ router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
 /// GETNEWCITY ROUTES OH MY GOD WHEN IT WILL END
 
 //LLLLLOGOUT route
-
-//LOGOUT route
 
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
