@@ -1,16 +1,11 @@
 {{#if userInSession}}
-  <div id="page"></div>
-
-  <h3>welcome to your time-travel machine, {{userInSession.username}} </h3>
-
-  <form action="/updateUserInfo" method="post" id="userInfoForm">
-  
-
+<div id="page"></div>
+<h3>welcome to your time-travel machine, {{userInSession.username}} </h3>
+<form action="/updateUserInfo" method="post" id="userInfoForm">
   <div class="info-user">
     <p3>About explorer</p3>
     <label for="userPhoto">Profile Photo:</label>
     <input type="file" name="userPhoto" accept="image/*" />
-    
     <ul class="user-list">
       <li>Email: {{userInSession.email}}</li>
       <li>
@@ -18,47 +13,45 @@
       </li>
       <li>
         City I am from:
-        <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name" value={{userInfoArray.returnedCity}}  />
+        <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name"
+          value={{userInfoArray.returnedCity}} />
       </li>
       <li>
         City I returned to most times:
-        <input type="text" name="returnedCity2" id="returnedCityInput2" placeholder="Enter city name" value={{userInfoArray.returnedCity2}}  />
+        <input type="text" name="returnedCity2" id="returnedCityInput2" placeholder="Enter city name"
+          value={{userInfoArray.returnedCity2}} />
       </li>
       <li>
-        City opened in an unexpected way:
-        <input type="text" name="returnedCity3" id="returnedCityInput3" placeholder="Enter city name" value={{userInfoArray.returnedCity3}}  />
+        City with unexpected experience:
+        <input type="text" name="returnedCity3" id="returnedCityInput3" placeholder="Enter city name"
+          value={{userInfoArray.returnedCity3}} />
       </li>
-
       <button type="submit">save changes</button>
-    
-
-       {{!-- {{#if userInSession.userPhoto}}
-        <img src="{{userInSession.userPhoto}}" alt="{{userInSession.username}}'s Photo">
-      {{/if}} --}}
-{{!-- is running  --}}
-
-    </div>
-    </ul>
-  </div> 
-  <script src="/db/user-page.js"></script>
+  </div>
+  </ul>
+  </div>
 </form>
-
-
-
 
 <p3>All visited countries</p3>
 {{#each userPostsFromDB}}
+<form action="/delete-post/{{this._id}}" method="post" id="deleteForm">
   <div class="info-travel">
     <ul class="travel-list">
+      {{this._id}}
       <li>{{title}}</li>
       <li>{{text}}</li>
-      <span><></span>
+      <span></span>
     </ul>
+    <button type="submit" id="deleteButton" href="{{post._id}}">delete</button>
   </div>
+  
+</form>
+
 {{/each}}
-  <button id="myMapButton">
-    <a href="/userProfile">my map</a>
-  </button>
+<button id="myMapButton">
+  <a href="/userProfile">my map</a>
+</button>
 {{else}}
-  <br /><p> do login</p>
+<br />
+<p> do login</p>
 {{/if}}

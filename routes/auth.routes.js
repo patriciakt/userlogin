@@ -6,7 +6,6 @@ const saltRounds = 10;
 
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
-
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
 
 //SSSSSSSIGNUP ROUTES
@@ -135,22 +134,6 @@ router.get("/userPage", isLoggedIn, async (req, res) => {
   }
 });
 
-// router.get("/userPage", isLoggedIn, (req, res) => {
-//   const userId = req.session.currentUser._id;
-
-//   User.findById(userId)
-//     .populate("posts")
-//     .then((user) => {
-//       console.log(user.posts);
-//       res.render("users/user-page", {
-//         userInSession: req.session.currentUser,
-//         userInfoArray: req.session.currentUser.userInfo[0],
-//         userPostsFromDB: user.posts,
-//       });
-//     })
-//     .catch((error) => console.log(error));
-// });
-
 //UUUPDATE ROUTESSSSSssssssssssssssssssssssssssssss
 
 router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
@@ -170,10 +153,6 @@ router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
     });
 
     await user.save();
-    // req.session.currentUser = {
-    //   ...req.session.currentUser,
-    //   ...req.body,
-    // };
 
     req.session.currentUser = await User.findById(userId);
     req.session.save();
@@ -183,24 +162,6 @@ router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
-
-// router.get("/updateUserInfo", isLoggedIn, async (req, res) => {
-//   try {
-//     const userId = req.session.currentUser._id;
-//     const user = await User.findById(userId);
-
-//     console.log("THIS IS THE USER =>", user);
-//     if (!user) {
-//       return res.status(404).send("User not found");
-//     }
-//     res.render("users/user-page", { userInSession: user });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
-
-/// GETNEWCITY ROUTES OH MY GOD WHEN IT WILL END
 
 //LLLLLOGOUT route
 

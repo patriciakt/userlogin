@@ -34,9 +34,18 @@ router.post("/create-post/", isLoggedIn, (req, res, next) => {
     })
     .then(() => {
       console.log("post saved!!");
-      res.redirect("/userProfile");
+      res.redirect("/userPage");
     })
     .catch((error) => next);
+});
+
+//DELETE POST
+router.post("/delete-post/:postId", (req, res, next) => {
+  const { postId } = req.params;
+
+  Post.findByIdAndDelete(postId)
+    .then(() => res.redirect("/userPage"))
+    .catch((error) => next(error));
 });
 
 module.exports = router;
