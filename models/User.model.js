@@ -20,15 +20,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
-
-    userPhoto: {
-      type: String,
-      default: "image@url",
-    },
     userInfo: [{}],
 
     posts: [{ type: Schema.Types.ObjectId, ref: "Post" }], //array of blog entries
-
   },
   {
     timestamps: true,
