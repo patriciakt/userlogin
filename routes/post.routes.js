@@ -18,7 +18,6 @@ router.get("/create-post", isLoggedIn, (req, res) => {
   });
 });
 
-
 router.post(
   "/create-post/",
   isLoggedIn,
@@ -50,7 +49,7 @@ router.post(
           });
       })
       .then(() => {
-        res.redirect("/userProfile");
+        res.redirect("/userPage");
       })
       .catch((error) => next);
   }
