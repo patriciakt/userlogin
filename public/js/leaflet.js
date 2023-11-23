@@ -17,6 +17,20 @@ let openStreetMap = L.tileLayer(
 //create map
 openStreetMap.addTo(map);
 
+//add geocoder control (for search)
+
+let geocoder = L.Control.geocoder({
+  geocoder: L.Control.Geocoder.nominatim(),
+  defaultMarkGeocode: false,
+}).addTo(map);
+
+geocoder.on("markgeocode", function (event) {
+  let latlng = event.geocode.center;
+
+  // Center the map on the geocoded location
+  map.setView(latlng, 8);
+});
+
 //open popup when clicked + coordinates
 function markerClick(e) {
   const marker = e.target;
@@ -25,10 +39,10 @@ function markerClick(e) {
 
   //popup content
   const popupContent = `
-<b>Hello traveler</b>
+<b><h2>Tell us more!</h2></b>
 <br>
 <a href="/create-post?lat=${lat}&lng=${lng}">
-<button>Tell us more</button>
+<button>....</button>
 </a>`;
 
   //create popup - bind popup to marker
@@ -38,6 +52,7 @@ function markerClick(e) {
 
 //double click to drop marker
 map.on("dblclick", function (e) {
+  console.log(e);
   //latlng - property name used in leaflet library for coordinates; (6, to fix coordinates decimal places)
   const latitude = e.latlng.lat.toFixed(8);
   const longitude = e.latlng.lng.toFixed(8);

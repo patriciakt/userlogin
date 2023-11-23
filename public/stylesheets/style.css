@@ -168,6 +168,7 @@ p3 {
 .info-travel {
   float: right;
   width: 50%;
+  margin-bottom: 20px;
 }
 
 .user-list li {

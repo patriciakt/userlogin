@@ -1,11 +1,9 @@
 {{#if userInSession}}
-<div id="page"></div>
-<h3>welcome to your time-travel machine, {{userInSession.username}} </h3>
-<form action="/updateUserInfo" method="post" id="userInfoForm">
+  <div id="page"></div>
+  <h3>welcome to your time-travel machine, {{userInSession.username}} </h3>
+  <form action="/updateUserInfo" method="post" id="userInfoForm">
   <div class="info-user">
     <p3>About explorer</p3>
-    <label for="userPhoto">Profile Photo:</label>
-    <input type="file" name="userPhoto" accept="image/*" />
     <ul class="user-list">
       <li>Email: {{userInSession.email}}</li>
       <li>
@@ -41,6 +39,9 @@
       <li>{{title}}</li>
       <li>{{text}}</li>
       <span></span>
+      <br>
+      <img src = "{{imageUrl}}" alt = "{{title}}" style = "max-width: 100px; max-height: 100px">
+      <br>
     </ul>
     <button type="submit" id="deleteButton" href="{{post._id}}">delete</button>
   </div>
@@ -52,6 +53,7 @@
   <a href="/userProfile">my map</a>
 </button>
 {{else}}
+
 <br />
 <p> do login</p>
 {{/if}}

@@ -6,6 +6,13 @@ const saltRounds = 10;
 
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
+
+
+const Post = require("../models/Post.model");
+
+const fileUploader = require("../config/cloudinary.config");
+
+
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
 
 //SSSSSSSIGNUP ROUTES
@@ -14,7 +21,7 @@ router.post("/signup", (req, res, next) => {
   console.log(req.body);
   const { username, email, password } = req.body;
 
-  // //if condition to check if user filled out all mandatory fields
+  //if condition to check if user filled out all mandatory fields
 
   if (!username || !email || !password) {
     res.render("auth/signup", {
@@ -62,8 +69,6 @@ router.post("/signup", (req, res, next) => {
     });
 });
 
-// close .catch()
-
 ///LLLLLOGIN ROUTESSS///
 
 router.get("/login", (req, res) => res.render("auth/login"));
@@ -79,6 +84,7 @@ router.post("/login", (req, res, next) => {
   }
 
   User.findOne({ email })
+    .populate("posts")
     .then((user) => {
       if (!user) {
         console.log("Email not registered. ");
@@ -89,7 +95,8 @@ router.post("/login", (req, res, next) => {
         return;
       } else if (bcryptjs.compareSync(password, user.passwordHash)) {
         req.session.currentUser = user;
-        //console.log("User ID:", userId);
+
+        console.log("User ID:", req.session.currentUser);
 
         res.redirect("/userProfile");
       } else {
@@ -136,32 +143,42 @@ router.get("/userPage", isLoggedIn, async (req, res) => {
 
 //UUUPDATE ROUTESSSSSssssssssssssssssssssssssssssss
 
-router.post("/updateUserInfo", isLoggedIn, async (req, res) => {
-  console.log(req.body);
-  console.log("CURRENT USER =>", req.session.currentUser);
-  try {
-    const userId = req.session.currentUser._id;
-    const { returnedCity, returnedCity2, returnedCity3 } = req.body;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).send(" user not found ");
-    }
-    user.userInfo.push({
-      returnedCity: returnedCity,
-      returnedCity2: returnedCity2,
-      returnedCity3: returnedCity3,
-    });
+router.post(
+  "/updateUserInfo",
+  isLoggedIn,
+  fileUploader.single("userPhoto"),
+  async (req, res) => {
+    try {
+      const userId = req.session.currentUser._id;
+      const { returnedCity, returnedCity2, returnedCity3 } = req.body;
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send(" user not found ");
+      }
+
 
     await user.save();
 
-    req.session.currentUser = await User.findById(userId);
-    req.session.save();
-    return res.redirect("/userPage");
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send("Internal Server Error");
+      user.userInfo.push({
+        returnedCity: returnedCity,
+        returnedCity2: returnedCity2,
+        returnedCity3: returnedCity3,
+      });
+
+
+      await user.save();
+
+
+      req.session.currentUser = await User.findById(userId);
+      req.session.save();
+      return res.redirect("/userPage");
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
   }
-});
+);
+
 
 //LLLLLOGOUT route
 

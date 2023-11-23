@@ -16,6 +16,9 @@ const postSchema = new mongoose.Schema(
     longitude: {
       type: String,
     },
+    imageUrl: {
+      type: String,
+    },
   },
 
   {
