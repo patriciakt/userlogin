@@ -1,0 +1,35 @@
+<h2>Your Trip:</h2>
+<div class="row">
+  <div class="col-md-6">
+    <form
+      action="/create-post"
+      id="createPost"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <label>Title:
+          <input type="text" name="title" class="form-control" />
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>Text:
+          <textarea name="text" cols="30" rows="30" class="form-control">
+          </textarea>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>Image:
+          <input type="file" name="travel-images" class="form-control-file" />
+        </label>
+      </div>
+
+      <input type="hidden" id="lat" name="lat" value="{{coordinates.lat}}" />
+      <input type="hidden" id="lng" name="lng" value="{{coordinates.lng}}" />
+      <br />
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>

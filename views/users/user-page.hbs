@@ -1,0 +1,61 @@
+{{#if userInSession}}
+  <div id="page"></div>
+
+  <h3>welcome to your time-travel machine, {{userInSession.username}} </h3>
+
+  <form action="/updateUserInfo" method="post" id="userInfoForm" enctype = "multipart/form-data">
+  
+
+  <div class="info-user">
+    <p3>About explorer</p3>
+    <ul class="user-list">
+      <li>Email: {{userInSession.email}}</li>
+      <li>
+        /total number of journeys in a year/
+      </li>
+      <li>
+        City I am from:
+        <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name" value={{userInfoArray.returnedCity}}  />
+      </li>
+      <li>
+        City I returned to most times:
+        <input type="text" name="returnedCity2" id="returnedCityInput2" placeholder="Enter city name" value={{userInfoArray.returnedCity2}}  />
+      </li>
+      <li>
+        City opened in an unexpected way:
+        <input type="text" name="returnedCity3" id="returnedCityInput3" placeholder="Enter city name" value={{userInfoArray.returnedCity3}}  />
+      </li>
+
+
+      <button type="submit">save changes</button>
+    
+
+ 
+
+    </div>
+    </ul>
+  </div> 
+  <script src="/db/user-page.js"></script>
+</form>
+
+
+
+
+<p3>All visited countries</p3>
+{{#each userPostsFromDB}}
+  <div class="info-travel">
+    <ul class="travel-list">
+      <li>{{title}}</li>
+      <li>{{text}}</li>
+      <br>
+      <img src = "{{imageUrl}}" alt = "{{title}}" style = "max-width: 100px; max-height: 100px">
+      <br>
+    </ul>
+  </div>
+{{/each}}
+  <button id="myMapButton">
+    <a href="/userProfile">my map</a>
+  </button>
+{{else}}
+  <br /><p> Please login!</p>
+{{/if}}
