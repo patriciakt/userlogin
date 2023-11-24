@@ -59,16 +59,34 @@ form button {
 }
 
 h1 {
-  .transparent-text {
-    font-size: 24px;
-    color: #fff;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    display: inline-block; /*  border wraps around the text */
-    border: 2px solid #fff; /* set the border color and width */
-    padding: 10px;
-  }
+  position: fixed;
+  top: 0px;
+  right: 0;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+h3 {
+  position: fixed;
+  font-style: oblique;
+  text-align: left;
+  top: 40px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-style: oblique;
+  text-align: left;
+}
+
+p3 {
+  text-align: center;
+  font-style: bold;
 }
 
 .error {
@@ -95,10 +113,8 @@ ul li {
 }
 
 nav {
-  position: relative;
-}
-
-nav::after {
+  position: fixed;
+  top: 0;
   content: "";
   display: table;
   clear: both;
@@ -138,51 +154,39 @@ nav::after {
   width: 120px;
 }
 
-h3 {
-  font-style: oblique;
-  text-align: center;
-}
-
-p3 {
-  text-align: center;
-  font-style: bold;
-}
-
 .layout-wrapper {
   position: relative;
 }
 
-#myMapButton {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 999;
-}
-
 .info-user {
-  float: left;
-  width: 50%;
-  margin-bottom: 10px;
-}
-
-.info-travel {
-  float: right;
-  width: 50%;
-  margin-bottom: 20px;
+  position: fixed;
+  left: 0;
+  margin: 60px;
+  margin-bottom: 50px;
+  padding: 30px;
+  border: 1px solid black;
 }
 
 .user-list li {
   margin: 10px;
-  margin-right: 70px;
+  margin-right: 36px;
+  left: 0;
 }
 
-.user-list ul {
-  margin-inline: 50px;
+.info-travel {
+  float: right;
+  width: calc(100% - 100px);
+  margin-left: 40px;
+  margin-bottom: 30px;
+  padding-left: 50px;
+  padding: 30px;
+  border: 1px solid black;
 }
 
 .travel-list li {
   list-style-type: none;
-  margin-right: 70px;
+  margin-bottom: 10px;
+  border: 1px;
 }
 
 button[type="submit"] {
@@ -205,4 +209,29 @@ button[type="submit"] {
   text-decoration: dotted;
   text-transform: uppercase;
   float: left;
+}
+
+#funButton {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  height: 50px;
+  width: 40px;
+  font-size: 20px;
+  padding: 5px;
+}
+
+#myMapButton {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+#logout-form {
+  padding: 3px;
+}
+
+#map {
+  position: fixed;
+  left: 0;
 }
