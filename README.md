@@ -1,10 +1,10 @@
-//MAP MENACE//
+**//MAP MENACE//**
 
 
 Map Menace is a travel blog platform where users can share their adventures by uploading images and texts associated with specific locations. The application features user authentication, a profile page displaying user information and posts, a map page for creating location-based posts, and basic CRUD functionality for posts.
 
 
-//How to use:
+**How to use:**
 
 1.Register or log in to start sharing your travel experiences.
 
@@ -19,7 +19,7 @@ Map Menace is a travel blog platform where users can share their adventures by u
 
 
 
-//Features:
+**Features:**
 
 User Authentication: Secure signup and login functionality to personalize the user experience.
 
@@ -37,7 +37,7 @@ Search Feature: The map page includes a search feature to easily navigate and lo
 
 
 
-//Technologies Used:
+**Technologies Used:**
 
 Frontend: 
 HTML, CSS, JavaScript, Leaflet API
@@ -53,7 +53,7 @@ MongoDB for data storage, Express for routing, Nodemon for server execution
 
 
 
-//Installation:
+**Installation:**
 
 1.Clone the repository.
 
@@ -72,7 +72,7 @@ MongoDB for data storage, Express for routing, Nodemon for server execution
 
 
 
-//Future Updates:
+**Future Updates:**
 
 Edit Post Feature, Interactive Comments, Customizable Profiles, Advanced Search Filters, Permanent Map Markers
 
