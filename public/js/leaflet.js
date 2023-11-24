@@ -28,7 +28,7 @@ geocoder.on("markgeocode", function (event) {
   let latlng = event.geocode.center;
 
   // Center the map on the geocoded location
-  map.setView(latlng, 8);
+  map.setView(latlng, 9);
 });
 
 //open popup when clicked + coordinates
@@ -39,10 +39,14 @@ function markerClick(e) {
 
   //popup content
   const popupContent = `
-<b><h2>Tell us more!</h2></b>
+  <b>
+  <div class="popup-content">
+    <h2>share your highlights!</h2>
+  </div>
+</b>
 <br>
 <a href="/create-post?lat=${lat}&lng=${lng}">
-<button>....</button>
+  <button id ="popupbutton">create post</button>
 </a>`;
 
   //create popup - bind popup to marker

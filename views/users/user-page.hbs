@@ -6,7 +6,7 @@
     <p3>About {{userInSession.username}}</p3>
     <ul class="user-list">
       <li>Email: {{userInSession.email}}</li>
-      
+      <br>
       <li>
         City I am from:
         <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name"
@@ -33,11 +33,11 @@
 <form action="/delete-post/{{this._id}}" method="post" id="deleteForm">
   <div class="info-travel">
     <ul>
+      <h4>{{title}}</h4>
      <br>
-      <img src = "{{imageUrl}}" alt = "{{title}}" style = "max-width: 100px; max-height: 100px position:fit-content">
+      <img src = "{{imageUrl}}" alt = "{{title}}" style = "max-width: 500px; max-height: 560px">
       <br>
       </li>
-      <h4>{{title}}</h4>
       <p>{{text}}</p>
        <button type="submit" id="deleteButton" href="{{post._id}}">delete</button>
     </ul>
