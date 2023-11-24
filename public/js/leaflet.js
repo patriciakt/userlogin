@@ -41,7 +41,7 @@ function markerClick(e) {
   const popupContent = `
   <b>
   <div class="popup-content">
-    <h2>share your highlights!</h2>
+    <h2>share your journeys</h2>
   </div>
 </b>
 <br>

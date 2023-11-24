@@ -1,7 +1,7 @@
 body {
   padding: 50px;
   font-size: 14px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   background-color: white;
 }
 
@@ -85,6 +85,7 @@ h1 {
 }
 
 h2 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   margin-top: 30px;
   display: flex;
   justify-content: center;
@@ -268,12 +269,14 @@ button[type="submit"] {
 
 .popup-content h2 {
   color: red;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-size: 13px;
   font-weight: 45;
 }
 
 #popupbutton {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   padding-left: 20px;
   padding-right: 20px;
   font-size: 13;
