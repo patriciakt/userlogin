@@ -1,4 +1,3 @@
-<h2>Your Trip:</h2>
 <div class="row">
   <div class="col-md-6">
     <form
@@ -8,22 +7,44 @@
       enctype="multipart/form-data"
     >
       <div class="form-group">
-        <label>Title:
-          <input type="text" name="title" class="form-control" />
+        <label>
+          <input
+            type="text"
+            name="title"
+            class="form-control"
+            placeholder="Share your thoughtsss"
+          />
         </label>
       </div>
 
       <div class="form-group">
-        <label>Text:
-          <textarea name="text" cols="30" rows="30" class="form-control">
+        <label>
+
+          <textarea
+            name="text"
+            cols="42"
+            rows="20"
+            class="form-control"
+            placeholder="create a story or simply add to your collection..."
+          >
           </textarea>
         </label>
       </div>
 
       <div class="form-group">
-        <label>Image:
-          <input type="file" name="travel-images" class="form-control-file" />
+        <label class="custom-file-input-button">
+          <input
+            type="file"
+            name="travel-images"
+            class="form-control-file"
+            id="fileInput"
+          />
         </label>
+        <button
+          type="button"
+          class="custom-button"
+          onclick="document.getElementById('fileInput').click()"
+        > -- attach a picture -- </button>
       </div>
 
       <input type="hidden" id="lat" name="lat" value="{{coordinates.lat}}" />
@@ -33,3 +54,8 @@
     </form>
   </div>
 </div>
+
+<p id="create-text">Comeup with a captivating title, tell us a story, add some
+  intriguing facts, share a touch of humor or joy - add to your collection of
+  memories.
+</p>

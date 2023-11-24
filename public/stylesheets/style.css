@@ -2,12 +2,20 @@ body {
   padding: 50px;
   font-size: 14px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: white;
 }
 
 .app-name {
-  color:red
-  font-weight: bold;
- 
+  color: red;
+  display: block;
+  margin-left: 350;
+}
+
+h1 > span {
+  display: block;
+  justify-content: space-between;
+  max-width: 280px;
+  margin-bottom: 15px;
 }
 
 a {
@@ -36,7 +44,11 @@ form label {
 #pageButton {
   position: fixed;
   top: 10px;
-  right: 0;
+  right: 10px;
+  background-color: transparent;
+  padding: 5px;
+
+  font-size: 12;
 }
 
 form input,
@@ -63,17 +75,13 @@ form button {
 
 h1 {
   display: flex;
-  justify-content: center;
-  font-size: medium;
-  margin-top: 50%;
-  width: 150px;
-  height: 150px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: auto;
-  margin-top: auto;
-  padding: 50px;
-
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  max-width: 750;
+  font-size: 25;
+  margin-top: 180;
+  margin-left: 100;
 }
 
 h2 {
@@ -93,12 +101,14 @@ h3 {
 
 h4 {
   font-style: oblique;
-  text-align: left;
+  text-align: center;
+  top: 10px;
 }
 
 p3 {
   text-align: center;
   font-style: bold;
+  padding-left: 40px;
 }
 
 .error {
@@ -164,6 +174,8 @@ nav {
 
 #logout-form button {
   width: 120px;
+  height: 30px;
+  padding: 2px;
 }
 
 .layout-wrapper {
@@ -186,19 +198,16 @@ nav {
 }
 
 .info-travel {
-  float: right;
-  width: calc(100% - 100px);
- 
-  margin-left: 40px;
-  margin-bottom: 30px;
-  padding-left: 50px;
-  padding: 30px;
+  float: inline-start;
+  margin-bottom: 40px;
+  padding: 20px;
   border: 1px solid black;
+  margin-left: 160px;
 }
 
 .travel-list li {
   list-style-type: none;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   border: 1px;
 }
 
@@ -211,6 +220,7 @@ button[type="submit"] {
   text-decoration: dotted;
   text-transform: uppercase;
   float: left;
+  margin-top: 40;
 }
 
 #deleteButton {
@@ -227,7 +237,7 @@ button[type="submit"] {
 #funButton {
   position: fixed;
   top: 80px;
-  left: 0;
+  left: 5px;
   height: 50px;
   width: 40px;
   font-size: 20px;
@@ -238,6 +248,9 @@ button[type="submit"] {
   position: fixed;
   top: 10px;
   right: 10px;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 12;
 }
 
 #logout-form {
@@ -247,4 +260,74 @@ button[type="submit"] {
 #map {
   position: fixed;
   left: 0;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup-content h2 {
+  color: red;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: 45;
+}
+
+#popupbutton {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 13;
+  top: 0;
+  background-color: transparent;
+}
+
+.row {
+  position: fixed;
+  left: 50%;
+}
+
+.form-group {
+  margin-bottom: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.row label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+  padding: 10px;
+  border: 1.3px solid black;
+}
+
+.form-group input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 80;
+  opacity: 0;
+  font-size: 12px;
+}
+
+/* styling the visible part */
+.custom-button {
+  padding: 5px 5px;
+  font-size: 10px;
+  background-color: lightblue;
+  color: rgb(12, 11, 11);
+  cursor: pointer;
+  text-decoration: dotted;
+  text-transform: uppercase;
+  float: left;
+}
+
+#create-text {
+  max-width: 250px;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14;
+  margin-top: 20px;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>{{appTitle}}</title>
+    <title>Map Menace</title>
 
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link
@@ -29,15 +29,15 @@
           <p><a href="/"> map.menace </a></p>
         </li>
         <li id="to-right">
-          <a href="/signup">signup</a>
-          <span> | </span>
-          <a href="/login">or login</a>
-          <span> | </span>
-          <form id="logout-form" action="/logout" method="POST">
-            <button>logout</button>
-
-          </form>
-
+          {{#if userInSession}}
+            <form id="logout-form" action="/logout" method="POST">
+              <button>logout</button>
+            </form>
+          {{else}}
+            <a href="/signup">signup</a>
+            <span> | </span>
+            <a href="/login">or login</a>
+          {{/if}}
         </li>
       </ul>
     </nav>
