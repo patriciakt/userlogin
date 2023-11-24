@@ -9,11 +9,9 @@ document
 
     const formData = new FormData(this);
 
-    fetch("/updateUserInfo", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
+    axios
+      .post("/updateUserInfo", formData)
+      .then((response) => response.data)
       .then((data) => {
         updateInputFields(data.userInfo);
       })
@@ -21,8 +19,9 @@ document
   });
 
 function fetchUserDataAndUpdateFields() {
-  fetch("/getUserData")
-    .then((response) => response.json())
+  axios
+    .get("/getUserData")
+    .then((response) => response.data)
     .then((data) => {
       updateInputFields(data.userInfo);
     })
@@ -35,17 +34,15 @@ function updateInputFields(userInfo) {
   document.getElementById("returnedCityInput3").value = userInfo.returnedCity3;
 }
 
-///for delete button
 document
   .getElementById("deleteForm")
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
     const postId = this.dataset.postId;
-    fetch(`/delete-post/${postId}`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
+    axios
+      .post(`/delete-post/${postId}`)
+      .then((response) => response.data)
       .then((data) => {
         console.log("post deleted:", data);
         window.location.href = "/userPage";
