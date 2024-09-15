@@ -1,4 +1,3 @@
-// models/User.model.js
 const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
@@ -21,6 +20,9 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
+    userInfo: [{}],
+
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }], //array of blog entries
   },
   {
     timestamps: true,

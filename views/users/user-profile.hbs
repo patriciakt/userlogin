@@ -1,11 +1,18 @@
 {{#if userInSession}}
-  <h2>Welcome, {{userInSession.username}}!</h2>
-  <p>This is your profile page my friend!</p>
-  <button>
-    <a href="/userProfile">Reload the page</a>
+
+  <h2>ready to conquer new territories, {{userInSession.username}}? </h2>
+  
+
+  <button id="pageButton">
+    <a href="/userPage">your map info</a>
+  <button id="funButton">
+    <a href="https://www.youtube.com/watch?v=xVWeRnStdSA">👾</a>
+
   </button>
+  <div id="map"></div>
+
 {{else}}
 
-  <br /><p>Still no logged in user, sorry!</p>
+  <br /><p> do login</p>
 
 {{/if}}

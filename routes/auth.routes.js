@@ -5,32 +5,36 @@ const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 
 const mongoose = require("mongoose");
-
-//require/import User model
 const User = require("../models/User.model");
 
-//require auth middleware
+
+const Post = require("../models/Post.model");
+
+const fileUploader = require("../config/cloudinary.config");
+
+
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard");
 
-//GET route --> display signup form to users
+//SSSSSSSIGNUP ROUTES
 router.get("/signup", (req, res) => res.render("auth/signup"));
-
-//POST route --> process form data
 router.post("/signup", (req, res, next) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
 
   //if condition to check if user filled out all mandatory fields
+
   if (!username || !email || !password) {
-    res.render("auth/signup", { errorMessage: "All fields are mandatory." });
+    res.render("auth/signup", {
+      errorMessage: "you better fill out all fields",
+    });
     return;
   }
 
-  //make sure of strong passwords
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   if (!regex.test(password)) {
     res.status(500).render("auth/signup", {
       errorMessage:
-        "Password needs to have at least one number, one lowercase and one uppercase letter!",
+        "strong password is easy: at least one number, one lowercase and one uppercase letter",
     });
     return;
   }
@@ -53,69 +57,136 @@ router.post("/signup", (req, res, next) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("auth/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
-        console.log(
-          " Username and email need to be unique. Either username or email is already used. "
-        );
+        console.log(" only unique email and username. try new one. ");
 
         res.status(500).render("auth/signup", {
-          errorMessage: "User not found and/or incorrect password.",
+          errorMessage:
+            "user not found and/or incorrect password. did you sleep well tonight, bro?",
         });
       } else {
         next(error);
       }
-    }); // close .catch()
-}); // close .post()
+    });
+});
 
-///LOGIN///
+///LLLLLOGIN ROUTESSS///
 
-//get route to display login form
 router.get("/login", (req, res) => res.render("auth/login"));
-
-//post login route
 router.post("/login", (req, res, next) => {
   console.log("SESSION ===>", req.session);
   const { email, password } = req.body;
 
   if (email === "" || password === "") {
     res.render("auth/login", {
-      errorMessage: "Please enter both, email AND password to login.",
+      errorMessage: "enter both, ok?",
     });
     return;
   }
 
   User.findOne({ email })
+    .populate("posts")
     .then((user) => {
       if (!user) {
         console.log("Email not registered. ");
         res.render("auth/login", {
-          errorMessage: "User not found and/or incorrect password.",
+          errorMessage:
+            "user not found and/or incorrect password. did you sleep well tonight, bro?",
         });
         return;
       } else if (bcryptjs.compareSync(password, user.passwordHash)) {
-        //saving user in session
         req.session.currentUser = user;
+
+        console.log("User ID:", req.session.currentUser);
+
         res.redirect("/userProfile");
       } else {
         console.log("Incorrect password. ");
         res.render("auth/login", {
-          errorMessage: "User not found and/or incorrect password.",
+          errorMessage:
+            "user not found and/or incorrect password. did you sleep well tonight, bro?",
         });
       }
     })
     .catch((error) => next(error));
 });
 
-//GET user profile display
+//MMMMAP/PROFILE ROUTES
 router.get("/userProfile", isLoggedIn, (req, res) =>
   res.render("users/user-profile", { userInSession: req.session.currentUser })
 );
 
-module.exports = router;
+router.get("/userPage", isLoggedIn, async (req, res) => {
+  try {
+    const userId = req.session.currentUser._id;
 
-//LOGOUT route
+    const user = await User.findById(userId).populate("posts");
+
+    const userInfoArray =
+      req.session.currentUser.userInfo.length > 0
+        ? req.session.currentUser.userInfo
+        : [];
+
+    const lastChangeIndex = userInfoArray.length - 1;
+    const lastChange =
+      lastChangeIndex >= 0 ? userInfoArray[lastChangeIndex] : null;
+
+    res.render("users/user-page", {
+      userInSession: req.session.currentUser,
+      userInfoArray: lastChange,
+      userPostsFromDB: user.posts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//UUUPDATE ROUTESSSSSssssssssssssssssssssssssssssss
+
+router.post(
+  "/updateUserInfo",
+  isLoggedIn,
+  fileUploader.single("userPhoto"),
+  async (req, res) => {
+    try {
+      const userId = req.session.currentUser._id;
+      const { returnedCity, returnedCity2, returnedCity3 } = req.body;
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send(" user not found ");
+      }
+
+
+    await user.save();
+
+      user.userInfo.push({
+        returnedCity: returnedCity,
+        returnedCity2: returnedCity2,
+        returnedCity3: returnedCity3,
+      });
+
+
+      await user.save();
+
+
+      req.session.currentUser = await User.findById(userId);
+      req.session.save();
+      return res.redirect("/userPage");
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Internal Server Error");
+    }
+  }
+);
+
+
+//LLLLLOGOUT route
+
 router.post("/logout", (req, res, next) => {
   req.session.destroy((err) => {
     if (err) next(err);
     res.redirect("/");
   });
 });
+
+module.exports = router;

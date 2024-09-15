@@ -1,0 +1,57 @@
+{{#if userInSession}}
+  <div id="page"></div>
+  <h3> check your past adventures, {{userInSession.username}} </h3>
+  <form action="/updateUserInfo" method="post" id="userInfoForm">
+  <div class="info-user">
+    <p3>About {{userInSession.username}}</p3>
+    <ul class="user-list">
+      <li>Email: {{userInSession.email}}</li>
+      <br>
+      <li>
+        City I am from:
+        <input type="text" name="returnedCity" id="returnedCityInput" placeholder="Enter city name"
+          value={{userInfoArray.returnedCity}} />
+      </li>
+      <li>
+        City I returned to most times:
+        <input type="text" name="returnedCity2" id="returnedCityInput2" placeholder="Enter city name"
+          value={{userInfoArray.returnedCity2}} />
+      </li>
+      <li>
+        City that surprised me:
+        <input type="text" name="returnedCity3" id="returnedCityInput3" placeholder="Enter city name"
+          value={{userInfoArray.returnedCity3}} />
+      </li>
+      <button type="submit">save changes</button>
+  </div>
+  </ul>
+  </div>
+</form>
+
+{{!-- <p3>All visited countries</p3> --}}
+{{#each userPostsFromDB}}
+<form action="/delete-post/{{this._id}}" method="post" id="deleteForm">
+  <div class="info-travel">
+    <ul>
+      <h4>{{title}}</h4>
+     <br>
+      <img src = "{{imageUrl}}" alt = "{{title}}" style = "max-width: 500px; max-height: 560px">
+      <br>
+      </li>
+      <p>{{text}}</p>
+       <button type="submit" id="deleteButton" href="{{post._id}}">delete</button>
+    </ul>
+
+  </div>
+  
+</form>
+
+{{/each}}
+<button id="myMapButton">
+  <a href="/userProfile">my map</a>
+</button>
+{{else}}
+
+<br />
+<p> do login</p>
+{{/if}}
